@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `<router-outlet></router-outlet>`,
-  styles: [``]
+  styles: [``],
 })
-export class AppComponent {
-  
-}
+export class AppComponent {}
