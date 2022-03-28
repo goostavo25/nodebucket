@@ -1,9 +1,15 @@
+/*
+========================================================
+; Title: WEB-450 - Nodebucket - Sprint 1
+; Author: Gustavo Roo Gonzalez
+; Date: 27 March 2022
+; Description: Nodebucket App
+========================================================
+*/
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-/**
- * employee schema, sprint 1
- */
 let employeeSchema = new Schema(
   {
     empId: { type: String, unique: true, dropDups: true },

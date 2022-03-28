@@ -1,3 +1,13 @@
+/*
+========================================================
+; Title: WEB-450 - Nodebucket - Sprint 1
+; Author: Professor Krasso
+; Modified by: Gustavo Roo Gonzalez
+; Date: 27 March 2022
+; Description: Nodebucket App
+========================================================
+*/
+
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
@@ -11,14 +21,16 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { MatCardModule } from "@angular/material/card";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { SigninComponent } from "./pages/signin/signin.component";
+import { SignInComponent } from "./pages/sign-in/sign-in.component";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SigninComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FlexLayoutModule, MatToolbarModule, MatCardModule, MatButtonModule, MatIconModule, HttpClientModule, FormsModule, ReactiveFormsModule],
+  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SignInComponent],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FlexLayoutModule, MatToolbarModule, MatButtonModule, MatIconModule, HttpClientModule, FormsModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule],
   providers: [],
   bootstrap: [AppComponent],
 })

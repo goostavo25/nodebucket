@@ -1,6 +1,14 @@
+/*
+========================================================
+; Title: WEB-450 - Nodebucket - Sprint 1
+; Author: Professor Krasso
+; Modified by: Gustavo Roo Gonzalez
+; Date: 27 March 2022
+; Description: Nodebucket App
+========================================================
+*/
+
 import { Component, OnInit } from "@angular/core";
-import { CookieService } from "ngx-cookie-service";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-base-layout",
@@ -8,14 +16,9 @@ import { Router } from "@angular/router";
   styleUrls: ["./base-layout.component.css"],
 })
 export class BaseLayoutComponent implements OnInit {
-  constructor(private cookieService: CookieService, private router: Router) {}
-
   year: number = Date.now();
 
-  ngOnInit(): void {}
+  constructor() {}
 
-  signOut() {
-    this.cookieService.deleteAll();
-    this.router.navigate(["/session/sign-in"]);
-  }
+  ngOnInit(): void {}
 }

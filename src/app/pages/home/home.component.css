@@ -1,14 +1,22 @@
+/*
+========================================================
+; Title: WEB-450 - Nodebucket - Sprint 1
+; Author: Gustavo Roo Gonzalez
+; Date: 27 March 2022
+; Description: Nodebucket App
+========================================================
+*/
+
 .main-welcome {
-    margin-top: 30px;
-  }
-  
-  .title {
-    text-align: center;
-    font-weight: lighter;
-  }
-  
-  .subtitle {
-    text-align: center;
-    font-size: 14px;
-  }
-  
+  margin-top: 30px;
+}
+
+.title {
+  text-align: center;
+  font-weight: lighter;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+}

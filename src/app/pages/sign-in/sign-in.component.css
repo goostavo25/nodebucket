@@ -1,0 +1,30 @@
+/*
+========================================================
+; Title: WEB-450 - Nodebucket - Sprint 1
+; Author: Professor Krasso
+; Modified by: Gustavo Roo Gonzalez
+; Date: 27 March 2022
+; Description: Nodebucket App
+========================================================
+*/
+
+.signin-container {
+  width: 30%;
+  text-align: center;
+  margin: 5% auto;
+}
+
+mat-form-field {
+  width: 50%;
+}
+
+.submit-button {
+  display: block;
+  margin-left: 50%;
+  margin-right: 50%;
+  max-width: 100%;
+}
+
+mat-card-subtitle {
+  color: red;
+}

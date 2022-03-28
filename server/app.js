@@ -1,3 +1,12 @@
+/*
+========================================================
+; Title: WEB-450 - Nodebucket - Sprint 1
+; Author: Gustavo Roo Gonzalez
+; Date: 27 March 2022
+; Description: Nodebucket App
+========================================================
+*/
+
 /**
  * Require statements
  */
@@ -8,7 +17,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mongoose = require("mongoose");
 const Employee = require("./models/employee");
-const EmployeeRoutes = require("./routes/employees-routes");
+require("dotenv").config();
 
 /**
  * App configurations
@@ -23,9 +32,9 @@ app.use("/", express.static(path.join(__dirname, "../dist/nodebucket")));
 /**
  * Variables
  */
-const port = 3000; // server port
+const port = process.env.PORT || 3000; // server port
 
-// Database connection string
+// MondgoDB Connection
 const conn = "mongodb+srv://admin:admin@buwebdev-cluster-1.umga8.mongodb.net/nodebucket?retryWrites=true&w=majority";
 
 /**
@@ -48,10 +57,28 @@ mongoose
  * API(s) go here...
  */
 
-app.use("/api/employees/:empId", EmployeeRoutes);
+app.get("/api/employees/:empId", async (req, res) => {
+  try {
+    Employee.findOne({ empId: req.params.empId }, function (err, employee) {
+      if (err) {
+        console.log(err);
+        res.status(500).send({
+          message: "Internal server error",
+        });
+      } else {
+        console.log(employee);
+        res.json(employee);
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({
+      message: "Internal server error",
+    });
+  }
+});
 
 /**
- *
  * Create and start server
  */
 http.createServer(app).listen(port, function () {
