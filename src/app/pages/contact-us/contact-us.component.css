@@ -1,0 +1,50 @@
+/*
+========================================================
+; Title: WEB-450 - Nodebucket - Sprint 2
+; Author: Gustavo Roo Gonzalez
+; Date: 27 March 2022
+; Description: Nodebucket App
+========================================================
+*/
+
+/* Main container styling */
+.container {
+  text-align: center;
+  font-weight: lighter;
+  margin: 150px 30px auto 30px;
+  width: 30%;
+  min-height: 200px;
+  background-color: #f4f4f4;
+}
+
+/* Main container header styling */
+.heading {
+  margin-top: 100px;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  text-align: center;
+  font-weight: 400;
+}
+
+/* Main content side padding */
+.main-content {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/* mat-card styling */
+mat-card {
+  margin-top: 400px;
+}
+
+/* mat-card header styling */
+mat-card-title {
+  background: #2e9cca;
+  min-height: 60px;
+  max-height: 60px;
+}
+
+/* Paragraph styling */
+p {
+  font-size: 20px;
+}

@@ -1,0 +1,21 @@
+/*
+========================================================
+; Title: WEB-450 - Nodebucket - Sprint 2
+; Author: Gustavo Roo Gonzalez
+; Date: 28 March 2022
+; Description: Nodebucket App
+========================================================
+*/
+
+import { Component, OnInit } from "@angular/core";
+
+@Component({
+  selector: "app-not-found",
+  templateUrl: "./not-found.component.html",
+  styleUrls: ["./not-found.component.css"],
+})
+export class NotFoundComponent implements OnInit {
+  constructor() {}
+
+  ngOnInit(): void {}
+}

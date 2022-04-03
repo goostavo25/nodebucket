@@ -15,6 +15,9 @@ import { Routes, RouterModule } from "@angular/router";
 import { SignInGuard } from "./shared/sign-in.guard";
 import { AuthLayoutComponent } from "./shared/auth-layout/auth-layout.component";
 import { SignInComponent } from "./pages/sign-in/sign-in.component";
+import { ContactUsComponent } from "./pages/contact-us/contact-us.component";
+import { AboutUsComponent } from "./pages/about-us/about-us.component";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
 
 const routes: Routes = [
   {
@@ -31,6 +34,16 @@ const routes: Routes = [
         component: HomeComponent,
         canActivate: [SignInGuard],
       },
+      {
+        path: "contact",
+        component: ContactUsComponent,
+        canActivate: [SignInGuard],
+      },
+      {
+        path: "about",
+        component: AboutUsComponent,
+        canActivate: [SignInGuard],
+      },
     ],
   },
   {
@@ -41,7 +54,16 @@ const routes: Routes = [
         path: "signin",
         component: SignInComponent,
       },
+      {
+        //localhost:4200/session/404
+        path: "404",
+        component: NotFoundComponent,
+      },
     ],
+  },
+  {
+    path: "**",
+    component: NotFoundComponent,
   },
 ];
 

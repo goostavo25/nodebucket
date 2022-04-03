@@ -27,10 +27,15 @@ import { SignInComponent } from "./pages/sign-in/sign-in.component";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { AboutUsComponent } from "./pages/about-us/about-us.component";
+import { ContactUsComponent } from "./pages/contact-us/contact-us.component";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { CreateTaskDialogComponent } from "./shared/create-task-dialog/create-task-dialog.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SignInComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FlexLayoutModule, MatToolbarModule, MatButtonModule, MatIconModule, HttpClientModule, FormsModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule],
+  declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SignInComponent, AboutUsComponent, ContactUsComponent, NotFoundComponent, CreateTaskDialogComponent],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FlexLayoutModule, MatToolbarModule, MatDialogModule, MatButtonModule, MatIconModule, HttpClientModule, FormsModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule],
   providers: [],
   bootstrap: [AppComponent],
 })

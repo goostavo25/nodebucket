@@ -34,7 +34,7 @@ app.use("/", express.static(path.join(__dirname, "../dist/nodebucket")));
  */
 const port = process.env.PORT || 3000; // server port
 
-// MondgoDB Connection
+// MongoDB Connection
 const conn = "mongodb+srv://admin:admin@buwebdev-cluster-1.umga8.mongodb.net/nodebucket?retryWrites=true&w=majority";
 
 /**
@@ -75,6 +75,75 @@ app.get("/api/employees/:empId", async (req, res) => {
     res.status(500).send({
       message: "Internal server error",
     });
+  }
+});
+
+/*
+ * CreateTask API
+ * POST methods work by taking form data posted to them and adding it to the database
+ */
+app.post("/api/employees/:empId/tasks", async (req, res) => {
+  try {
+    const employeeId = req.params.empId;
+    // Finding an employee by ID
+    Employee.findOne({ empId: req.params.empId }, function (err, employee) {
+      if (err) {
+        console.log(err);
+        res.status(500).send({
+          message: "Internal server error: " + err.message,
+        });
+      } else {
+        console.log(employee);
+
+        // Creating the new task
+        const newItem = {
+          text: req.body.text,
+        };
+
+        // Pushing a new task (which is todo by default) to the employee todo array document
+        employee.todo.push(newItem);
+
+        // save() returns a promise, which if it succeeds the promise resolves to the document that was saved
+        employee.save(function (err, updatedEmployee) {
+          if (err) {
+            console.log(err);
+            res.status(500).send({
+              message: "Internal server error: " + err.message,
+            });
+          } else {
+            console.log(updatedEmployee);
+            res.json(updatedEmployee);
+          }
+        });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({
+      message: "Internal server error: " + e.message,
+    });
+  }
+});
+
+/*
+ * FindAllTasks API
+ */
+app.get("/api/employees/:empId/tasks", async (req, res) => {
+  try {
+    Employee.findOne({ empId: req.params.empId }, "empId todo done", function (err, employee) {
+      if (err) {
+        console.log(err);
+        res.status(500).send({
+          message: "Internal server error:" + err.message,
+        });
+      } else {
+        console.log(employee);
+        res.json(employee);
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Internal server error: " + e.message);
   }
 });
 
