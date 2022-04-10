@@ -15,6 +15,7 @@ import { TaskService } from "src/app/shared/services/task.service";
 import { CookieService } from "ngx-cookie-service";
 import { MatDialog } from "@angular/material/dialog";
 import { CreateTaskDialogComponent } from "src/app/shared/create-task-dialog/create-task-dialog.component";
+import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: "app-home",
@@ -30,6 +31,9 @@ export class HomeComponent implements OnInit {
   constructor(private taskService: TaskService, private cookieService: CookieService, private dialog: MatDialog) {
     this.empId = parseInt(this.cookieService.get("session_user"), 10);
 
+    /**
+     * Makes call to taskService function findAllTasks
+     */
     this.taskService.findAllTasks(this.empId).subscribe(
       (res) => {
         // Logging for debugging purposes
@@ -88,5 +92,64 @@ export class HomeComponent implements OnInit {
         );
       }
     });
+  }
+
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
+      console.log(`Reordered the existing list of task items`);
+
+      this.updateTaskList(this.empId, this.todo, this.done);
+    } else {
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+      console.log(`Moved task to the container`);
+      this.updateTaskList(this.empId, this.todo, this.done);
+    }
+  }
+
+  /*
+   * Function to update a task
+   */
+
+  updateTaskList(empId: number, todo: Item[], done: Item[]): void {
+    this.taskService.updateTask(empId, todo, done).subscribe(
+      (res) => {
+        this.employee = res.data;
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        this.todo = this.employee.todo;
+        this.done = this.employee.done;
+        console.log("This " + this.employee.todo + this.employee.done + " have been updated.");
+      }
+    );
+  }
+
+  /*
+   * Delete task function, confirmation pop-up before deleting a task
+   */
+
+  deleteTask(taskId: string) {
+    if (confirm("Are you sure you want to delete this task?")) {
+      if (taskId) {
+        console.log(`Task item: ${taskId} was deleted`);
+
+        this.taskService.deleteTask(this.empId, taskId).subscribe(
+          (res) => {
+            this.employee = res.data;
+          },
+          (err) => {
+            console.log(err);
+          },
+          () => {
+            this.todo = this.employee.todo;
+            this.done = this.employee.done;
+          }
+        );
+      }
+    }
   }
 }

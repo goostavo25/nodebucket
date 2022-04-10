@@ -32,10 +32,11 @@ import { ContactUsComponent } from "./pages/contact-us/contact-us.component";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { CreateTaskDialogComponent } from "./shared/create-task-dialog/create-task-dialog.component";
 import { MatDialogModule } from "@angular/material/dialog";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, BaseLayoutComponent, AuthLayoutComponent, SignInComponent, AboutUsComponent, ContactUsComponent, NotFoundComponent, CreateTaskDialogComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FlexLayoutModule, MatToolbarModule, MatDialogModule, MatButtonModule, MatIconModule, HttpClientModule, FormsModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, DragDropModule, FlexLayoutModule, MatToolbarModule, MatDialogModule, MatButtonModule, MatIconModule, HttpClientModule, FormsModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule],
   providers: [],
   bootstrap: [AppComponent],
 })

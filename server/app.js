@@ -17,6 +17,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mongoose = require("mongoose");
 const Employee = require("./models/employee");
+const BaseResponse = require("./models/base-response");
 require("dotenv").config();
 
 /**
@@ -55,6 +56,10 @@ mongoose
 
 /**
  * API(s) go here...
+ */
+
+/*
+ * findEmployeeById API
  */
 
 app.get("/api/employees/:empId", async (req, res) => {
@@ -147,6 +152,95 @@ app.get("/api/employees/:empId/tasks", async (req, res) => {
   }
 });
 
+/*
+ * updateTask API
+ */
+
+app.put("/api/employees/:empId/tasks", async (req, res) => {
+  try {
+    Employee.findOne({ empId: req.params.empId }, function (err, employee) {
+      if (err) {
+        console.log(err);
+        const updatedTaskMongoErrorResponse = new BaseResponse("501", "MongoDB Server Error", err);
+        res.status(501).send(updatedTaskMongoErrorResponse.toObject());
+      } else {
+        console.log(employee);
+        employee.set({
+          todo: req.body.todo,
+          done: req.body.done,
+        });
+
+        employee.save(function (err, updatedEmployee) {
+          if (err) {
+            console.log(err);
+            const updateTaskOnSaveMongoErrorResponse = new BaseResponse("500", "MongoDB Server Error", err);
+            res.status(500).send(updateTaskOnSaveMongoErrorResponse.toObject());
+          } else {
+            console.log(updatedEmployee);
+            const updatedTaskOnSuccessResponse = new BaseResponse("200", "Update Successful", updatedEmployee);
+            res.json(updatedTaskOnSuccessResponse.toObject());
+          }
+        });
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(updateTaskOnSaveMongoErrorResponse.toObject());
+  }
+});
+
+/**
+ * deleteTask API
+ */
+app.delete("/api/employees/:empId/tasks/:taskId", async (req, res) => {
+  try {
+    Employee.findOne({ empId: req.params.empId }, function (err, employee) {
+      if (err) {
+        console.log(err);
+        const deleteTaskMongoErrorResponse = new BaseResponse("501", "MongoDB Server Error", err);
+        res.status(501).send(deleteTaskMongoErrorResponse.toObject());
+      } else {
+        console.log(employee);
+        const todoItem = employee.todo.find((item) => item._id.toString() === req.params.taskId);
+        const doneItem = employee.done.find((item) => item._id.toString() === req.params.taskId);
+
+        if (todoItem) {
+          employee.todo.id(todoItem._id).remove();
+          employee.save(function (err, updatedtodoItemEmployee) {
+            if (err) {
+              console.log(err);
+              const deletetodoItemMongoErrorResponse = new BaseResponse("501", "MongoDB Server Error", err);
+              res.status(501).send(deletetodoItemMongoErrorResponse.toObject());
+            } else {
+              console.log(updatedtodoItemEmployee);
+              const deletetodoItemOnSuccessResponse = new BaseResponse("200", "Removed item from the todo List", updatedtodoItemEmployee);
+              res.json(deletetodoItemOnSuccessResponse.toObject());
+            }
+          });
+        } else if (doneItem) {
+          employee.done.id(doneItem._id).remove();
+          employee.save(function (err, updatedDoneItemEmployee) {
+            if (err) {
+              console.log(err);
+              res.status(500).send(updateTaskOnSaveMongoErrorResponse.toObject());
+            } else {
+              console.log(updatedDoneItemEmployee);
+              res.json(updatedDoneItemEmployee.toObject());
+            }
+          });
+        } else {
+          console.log("Invalid ID: " + req.params.taskId);
+          const deleteTaskNotFoundResponse = new BaseResponse("300", "Invalid taskId", req.params.taskId);
+          res.status(300).send(deleteTaskNotFoundResponse.toObject());
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    const deleteTaskCatchErrorResponse = new BaseResponse("500", "Internal Server Error", e);
+    res.status(500).send(deleteTaskCatchErrorResponse.toObject());
+  }
+});
 /**
  * Create and start server
  */
