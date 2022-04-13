@@ -11,7 +11,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Item } from "../models/Item.interface";
+import { Item } from "../models/item.interface";
 
 @Injectable({
   providedIn: "root",
