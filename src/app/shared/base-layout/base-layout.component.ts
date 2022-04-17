@@ -20,7 +20,7 @@ import { Router } from "@angular/router";
 export class BaseLayoutComponent implements OnInit {
   year: number = Date.now();
   isLoggedIn: boolean;
-  name: string;
+  name: string | null;
 
   constructor(private cookieService: CookieService, private router: Router) {
     this.isLoggedIn = this.cookieService.get("session_user") ? true : false;

@@ -225,7 +225,8 @@ app.delete("/api/employees/:empId/tasks/:taskId", async (req, res) => {
               res.status(500).send(updateTaskOnSaveMongoErrorResponse.toObject());
             } else {
               console.log(updatedDoneItemEmployee);
-              res.json(updatedDoneItemEmployee.toObject());
+              const deletedoneItemOnSuccessResponse = new BaseResponse("200", "Removed item from the todo List", updatedDoneItemEmployee);
+              res.json(deletedoneItemOnSuccessResponse.toObject());
             }
           });
         } else {
